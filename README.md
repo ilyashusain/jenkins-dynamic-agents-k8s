@@ -123,3 +123,4 @@ and follow the instructions in the browser to setup jenkins.
 In the Jenkins UI, navigate to Manage Jenkins > Plugins, and install the Kubernetes plugin from the list of available plugins. Let Jenkins restart.
 
 ## 5. Configure Jenkins
+

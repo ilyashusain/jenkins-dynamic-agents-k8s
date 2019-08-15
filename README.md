@@ -18,7 +18,7 @@ We will create a service account via RBAC (Role Based Authentication Control) th
 
 Similar to how we must create service accounts in GCP or iam roles in AWS to permit Terraform to spin up machines on the hypervisor, we must also configure RBAC to allow the jenkins master to spin up agents on our cluster. In this case, we will grant the jenkins master admin permissions.
 
-First, take a look at the admin-account.yaml file:
+First, `git clone` this repository and take a look at the admin-account.yaml file:
 
 ```
 ---
@@ -28,7 +28,7 @@ metadata:
   name: admin-account
 ```
 
-This is our service account, create it by executing `kubectl apply -f admin-account.yaml`. However, at the moment, it has no role attached to it, so it is currently dead. Let us attach a clusterrole to this service account. Run `kubectl get clusterroles` to view the available default roles:
+This is our service account, create it by executing `kubectl apply -f admin-account.yaml`. However, at the moment, it has no role attached to it, so it is basically dead. Let us attach a clusterrole to this service account. Run `kubectl get clusterroles` to view the available default roles:
 
 ```
 NAME                                                                   AGE
@@ -81,7 +81,6 @@ spec:
         app: jenkins-auto-ci
     spec:
       serviceAccountName: admin-account
-      #automountServiceAccountToken: false
       containers:
       - name: jenkins-auto
         image: jenkins/jenkins
@@ -94,3 +93,27 @@ spec:
         - name: jnlp-port
           containerPort: 50000
 ```
+
+Execute `kubectl apply -f jenkins.yaml` to deploy your jenkins. Now we can access jenkins by taking the NodePort from `kubectl get svc` together with the IP of the worker node and pasting it into the browser: `http://<worker node IP>:<NodePort>`.
+
+*NOTE:* Please ensure your Jenkins master has its state persisted for production/development use cases. For instructions on how to do so, please see: https://github.com/ilyashusain/vmware_dynamic_persistent_vols_k8s.
+
+# Log into the Jenkins master container
+
+Since the Jenkins master is containerized in a kubernetes cluster, there are additional steps we must enact to retrieve the password. First, ssh into the node that hosts the jenkins deployment:
+
+`ssh <worker node ip where jenkins deployed>`
+  
+Then list the running containers and search for your jenkins container:
+
+`sudo docker ps -a | head -6 #search for ID of jenkins container`
+
+Finally, ssh into this container:
+
+`sudo docker exec -it -u root <docker ID of jenkins-auto-ci> /bin/bash`
+
+and run:
+
+`cat /var/lib/jenkins/secrets/initialAdminPassword`
+
+and follow the instructions in the browser to setup jenkins.

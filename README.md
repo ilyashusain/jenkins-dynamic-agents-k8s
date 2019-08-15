@@ -124,6 +124,8 @@ In the Jenkins UI, navigate to Manage Jenkins > Plugins, and install the Kuberne
 
 ## 5. Configure Jenkins
 
+### 5.1:
+
 Log back into jenkins and navigate to Manage Jenkins > Configure System, scroll down and click on "Add a new cloud", select "Kubernetes":
 
 ![Alt text](newcloud.png)
@@ -207,3 +209,9 @@ Copy this into the Kubernetes URL field.
 ![Alt text](jenkinsurl1.png)
 </p>
 </details>
+
+### 5.2
+
+Scroll further down the page  and click on 'Pod Tmplate' then click on 'Container Template', make sure all entries match the following picture:
+
+![Alt text](jenkinspodtemp.png)

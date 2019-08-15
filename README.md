@@ -132,7 +132,7 @@ A page containing the below fields will appear:
 
 ![Alt text](k8s1.png)
 
-<details><summary>*Kubernetes URL:*</summary>
+<details><summary>Kubernetes URL:</summary>
 <p>
 To retrieve the Kubernetes URL, log into Rancher and navigate to *Clusters*:
 

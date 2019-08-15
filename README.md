@@ -124,3 +124,4 @@ In the Jenkins UI, navigate to Manage Jenkins > Plugins, and install the Kuberne
 
 ## 5. Configure Jenkins
 
+![alt text](https://github.com/ilyashusain/jenkins-dynamic-agents-k8s/edit/master/k8s1.png)

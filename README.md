@@ -25,10 +25,10 @@ First, take a look at the admin.yaml file:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: jenkins
+  name: admin-account
 ```
 
-This is our service account. However, at the moment, it has no official role attached to it. Run `kubectl get clusterroles` to view the available default roles:
+This is our service account, create it by executing `kubectl apply -f admin.yaml`. However, at the moment, it has no official role attached to it. Run `kubectl get clusterroles` to view the available default roles:
 
 ```
 NAME                                                                   AGE
@@ -40,7 +40,7 @@ cluster-admin                                                          4d22h
 ...
 ```
 
-Let us explore the cluster-admin role. Run `kubectl describe clusterrole cluster-admin:`
+Let us explore the `cluster-admin` role. Run `kubectl describe clusterrole cluster-admin:`
 
 ```
 Name:         cluster-admin
@@ -55,4 +55,17 @@ PolicyRule:
 
 The `*.*` beneath resources suggests that this role has permissions to alter all resources in our cluster. Let us select this for the sake of simplicity.
 
-`kubectl create clusterrolebinding add-on-cluster-admin   --clusterrole=cluster-admin   --serviceaccount=default:admin-account`
+We can now assign the cluster role `cluster-admin` to our service account `admin-account` by creating a clusterrolebinding (the clusterrolebinding acts as a kind of 'glue'):
+
+`kubectl create clusterrolebinding assign-cluster-admin-to-admin-account   --clusterrole=cluster-admin   --serviceaccount=default:admin-account`
+
+When specfying the serviceaccount in the abive command, it must be in the format `--serviceaccount=<Namespace>:<Service-Account>`, in our case it is ` --serviceaccount=default:admin-account`.
+
+We are now ready to deploy our jenkins master with this service account.
+
+## 2. Deploy the Jenkins master with the admin service account
+
+
+
+
+

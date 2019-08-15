@@ -132,4 +132,16 @@ A page containing the below fields will appear:
 
 ![Alt text](k8s1.png)
 
-*Kubernetes URL:*
+*Kubernetes URL:* To retrieve the Kubernetes URL, log into Rancher and navigate to *Clusters*:
+
+![Alt text](ranchercluster.png)
+
+Click on "Launch kubectl":
+
+![Alt text](rancherlaunch.png)
+
+Execute within the shell `kubectl cluster-info` and your Kubernetes URL will be listed (highlighted):
+
+![Alt text](ranchershell.png)
+
+Copy this into the Kubernetes URL field.

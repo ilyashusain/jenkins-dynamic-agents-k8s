@@ -181,5 +181,5 @@ From the drop down select your credential and ensure you disable the https certi
 
 ![Alt text](xjenkinscred3.png)
 
-Click "Test Connection". It should return with success, else review your process.
+Click "Test Connection". It should return with success, else review your previous steps.
   

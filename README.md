@@ -132,19 +132,9 @@ A page containing the below fields will appear:
 
 ![Alt text](k8s1.png)
 
-<details><summary>CLICK ME</summary>
+<details><summary>*Kubernetes URL:*</summary>
 <p>
-
-#### yes, even hidden code blocks!
-
-```python
-print("hello world!")
-```
-
-</p>
-</details>
-
-*Kubernetes URL:* To retrieve the Kubernetes URL, log into Rancher and navigate to *Clusters*:
+To retrieve the Kubernetes URL, log into Rancher and navigate to *Clusters*:
 
 ![Alt text](ranchercluster.png)
 
@@ -157,3 +147,5 @@ Execute within the shell `kubectl cluster-info` and your Kubernetes URL will be 
 ![Alt text](ranchershell.png)
 
 Copy this into the Kubernetes URL field.
+</p>
+</details>

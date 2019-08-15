@@ -18,7 +18,7 @@ We will create a service account via RBAC (Role Based Authentication Control) th
 
 Similar to how we must create service accounts in GCP or iam roles in AWS to permit Terraform to spin up machines on the hypervisor, we must also configure RBAC to allow the jenkins master to spin up agents on our cluster. In this case, we will grant the jenkins master admin permissions.
 
-First, take a look at the admin.yaml file:
+First, take a look at the admin-account.yaml file:
 
 ```
 ---
@@ -28,7 +28,7 @@ metadata:
   name: admin-account
 ```
 
-This is our service account, create it by executing `kubectl apply -f admin.yaml`. However, at the moment, it has no official role attached to it. Run `kubectl get clusterroles` to view the available default roles:
+This is our service account, create it by executing `kubectl apply -f admin-account.yaml`. However, at the moment, it has no role attached to it, so it is currently dead. Let us attach a clusterrole to this service account. Run `kubectl get clusterroles` to view the available default roles:
 
 ```
 NAME                                                                   AGE
@@ -55,17 +55,42 @@ PolicyRule:
 
 The `*.*` beneath resources suggests that this role has permissions to alter all resources in our cluster. Let us select this for the sake of simplicity.
 
-We can now assign the cluster role `cluster-admin` to our service account `admin-account` by creating a clusterrolebinding (the clusterrolebinding acts as a kind of 'glue'):
+We will now assign the cluster role `cluster-admin` to our service account `admin-account` by creating a clusterrolebinding (the clusterrolebinding acts as a kind of 'glue' that sticks them together):
 
 `kubectl create clusterrolebinding assign-cluster-admin-to-admin-account   --clusterrole=cluster-admin   --serviceaccount=default:admin-account`
 
-When specfying the serviceaccount in the abive command, it must be in the format `--serviceaccount=<Namespace>:<Service-Account>`, in our case it is ` --serviceaccount=default:admin-account`.
+When specfying the serviceaccount in the above command, it must be in the format `--serviceaccount=<Namespace>:<Service-Account>`, in our case it is ` --serviceaccount=default:admin-account`.
 
 We are now ready to deploy our jenkins master with this service account.
 
 ## 2. Deploy the Jenkins master with the admin service account
 
+The syntax for deploying a jenkins master with a service account is viewable in the jenkins.yaml file, reploduced below for ease (omitted the service for readability):
 
-
-
-
+```
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: jenkins-auto-ci
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jenkins-auto-ci
+    spec:
+      serviceAccountName: admin-account
+      #automountServiceAccountToken: false
+      containers:
+      - name: jenkins-auto
+        image: jenkins/jenkins
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+        ports:
+        - name: http-port
+          containerPort: 80
+        - name: jnlp-port
+          containerPort: 50000
+```

@@ -216,4 +216,16 @@ Scroll further down the page  and click on 'Pod Tmplate' then click on 'Containe
 
 ![Alt text](jenkinspodtemp.png)
 
-Scroll dowwn to the bottom of the page and click 'Save'.
+Scroll down to the bottom of the page and click 'Save'.
+
+## 6. Create a job
+
+Create a job, referencing the jenkins slave in the jobs configuration page as such:
+
+![Alt text](jenkinsjob.png)
+
+Now scroll down to the Build section and create a simple shell script that echos 'hello':
+
+![Alt text](jenkinsjob1.png)
+
+You may now run your job. A jenkins agent will spin up that echos 'hello', thereafter it will auto-delete itself when the job is complete.

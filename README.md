@@ -149,3 +149,25 @@ Execute within the shell `kubectl cluster-info` and your Kubernetes URL will be 
 Copy this into the Kubernetes URL field.
 </p>
 </details>
+
+<details><summary>Credentials:</summary>
+<p>
+  
+To configure credentials so that Jenkins can authenticate with your cluster, click the top right icon and select "API and Keys":
+
+![Alt text](ranchercreds.png)
+
+Click "Add Key":
+
+![Alt text](rancherkeyadd.png)
+
+Enter a description e.g. "jenkins-auth" (leave the rest of the fields as they are), then click Create:
+
+![Alt text](rancherkeyadd2.png)
+
+Save the token and secret key for the Jenkins credentials username and password respectively, we will do this next. Go back to the Jenkins configuration and click "Credentials", then click Jenkins from the drop down:
+
+![Alt text](rancherkeyadd3.png)
+
+click "Add Key":
+  

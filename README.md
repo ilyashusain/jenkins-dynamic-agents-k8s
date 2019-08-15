@@ -215,3 +215,5 @@ Copy this into the Kubernetes URL field.
 Scroll further down the page  and click on 'Pod Tmplate' then click on 'Container Template', make sure all entries match the following picture:
 
 ![Alt text](jenkinspodtemp.png)
+
+Scroll dowwn to the bottom of the page and click 'Save'.

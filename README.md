@@ -98,7 +98,7 @@ Execute `kubectl apply -f jenkins.yaml` to deploy your jenkins. Now we can acces
 
 *NOTE:* Please ensure your Jenkins master has its state persisted for production/development use cases. For instructions on how to do so, please see: https://github.com/ilyashusain/vmware_dynamic_persistent_vols_k8s.
 
-# Log into the Jenkins master container
+## 3. Log into the Jenkins master container
 
 Since the Jenkins master is containerized in a kubernetes cluster, there are additional steps we must enact to retrieve the password. First, ssh into the node that hosts the jenkins deployment:
 
@@ -117,3 +117,9 @@ and run:
 `cat /var/lib/jenkins/secrets/initialAdminPassword`
 
 and follow the instructions in the browser to setup jenkins.
+
+## 4. Install the Kubernetes plugin
+
+In the Jenkins UI, navigate to Manage Jenkins > Plugins, and install the Kubernetes plugin from the list of available plugins. Let Jenkins restart.
+
+## 5. Configure Jenkins

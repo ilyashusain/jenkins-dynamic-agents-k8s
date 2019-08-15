@@ -124,7 +124,12 @@ In the Jenkins UI, navigate to Manage Jenkins > Plugins, and install the Kuberne
 
 ## 5. Configure Jenkins
 
-Log back into jenkins and navigate to Manage Jenkins > Configure System, scroll down and click on:
+Log back into jenkins and navigate to Manage Jenkins > Configure System, scroll down and click on "Add a new cloud":
+
+![Alt text](newcloud.png)
+
+A page containing the below fields will appear:
 
 ![Alt text](k8s1.png)
 
+*Kubernetes URL:*

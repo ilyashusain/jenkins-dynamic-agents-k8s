@@ -210,7 +210,7 @@ Copy this into the Kubernetes URL field.
 </p>
 </details>
 
-### 5.2
+### 5.2:
 
 Scroll further down the page  and click on 'Pod Tmplate' then click on 'Container Template', make sure all entries match the following picture:
 

@@ -182,7 +182,9 @@ Copy this into the Kubernetes URL field.
 ![Alt text](xjenkinscred3.png)
 
 8. Click "Test Connection". It should return with success, else review your previous steps.
-  
+</p>
+</details>
+
 <details><summary>Jenkins URL:</summary>
 <p>
   
@@ -203,3 +205,5 @@ Copy this into the Kubernetes URL field.
 5. Copy this IP into the Jenkins URL field, followed by :80. We  follow the IP by :80 since  that as the assigned containerPort in the jenkins yaml.
 
 ![Alt text](jenkinsurl1.png)
+</p>
+</details>

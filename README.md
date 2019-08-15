@@ -202,7 +202,7 @@ Copy this into the Kubernetes URL field.
 
 ![Alt text](jenkinsurl.png)
 
-5. Copy this IP into the Jenkins URL field, followed by :80. We  follow the IP by :80 since  that as the assigned containerPort in the jenkins yaml.
+5. Copy this IP into the Jenkins URL field, followed by :80. We  follow the IP by :80 since that was the assigned containerPort in the jenkins yaml.
 
 ![Alt text](jenkinsurl1.png)
 </p>

@@ -183,3 +183,23 @@ Copy this into the Kubernetes URL field.
 
 8. Click "Test Connection". It should return with success, else review your previous steps.
   
+<details><summary>Jenkins URL:</summary>
+<p>
+  
+1. Navigate to your cluster:
+
+![Alt text](ranchercluster.png)
+
+2. Click on "Launch kubectl":
+
+![Alt text](rancherlaunch.png)
+
+3. Execute `kubectl get pods` to get the jenkins master.
+
+4. Execute `kubectl describe pod <name of jenkins master pod>`, and copy the IP to your clipboard:
+
+![Alt text](jenkinsurl.png)
+
+5. Copy this IP into the Jenkins URL field, followed by :80. We  follow the IP by :80 since  that as the assigned containerPort in the jenkins yaml.
+
+![Alt text](jenkinsurl1.png)

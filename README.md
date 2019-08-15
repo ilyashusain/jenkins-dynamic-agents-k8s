@@ -132,6 +132,18 @@ A page containing the below fields will appear:
 
 ![Alt text](k8s1.png)
 
+<details><summary>CLICK ME</summary>
+<p>
+
+#### yes, even hidden code blocks!
+
+```python
+print("hello world!")
+```
+
+</p>
+</details>
+
 *Kubernetes URL:* To retrieve the Kubernetes URL, log into Rancher and navigate to *Clusters*:
 
 ![Alt text](ranchercluster.png)

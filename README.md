@@ -1,7 +1,7 @@
 # jenkins-dynamic-agents-k8s
 
 # Requirements:
-- A functional kubernetes cluster
+- A functioning kubernetes cluster
 - Rancher installed on the cluster
 
 ## Introduction:
@@ -114,7 +114,7 @@ Finally, ssh into this container:
 
 and run:
 
-`cat /var/lib/jenkins/secrets/initialAdminPassword`
+`cat /var/jenkins_home/secrets/initialAdminPassword`
 
 and follow the instructions in the browser to setup jenkins.
 
@@ -212,7 +212,7 @@ Copy this into the Kubernetes URL field.
 
 ### 5.2:
 
-Scroll further down the page  and click on 'Pod Tmplate' then click on 'Container Template', make sure all entries match the following picture:
+Scroll further down the page  and click on 'Pod Template' then click on 'Container Template', make sure all entries match the following picture:
 
 ![Alt text](jenkinspodtemp.png)
 

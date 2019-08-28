@@ -36,6 +36,6 @@ spec:
           value: dns
         ports:
         - name: http-port
-          containerPort: 80
+          containerPort: 8080
         - name: jnlp-port
           containerPort: 50000

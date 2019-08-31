@@ -254,6 +254,16 @@ kubectl expose deployment/hellowhale --port 80 --name hellowhalesvc --type NodeP
 ## 8. CI webhooks on Github
 
 We will now setup CI with a sample website in a git repo: https://github.com/ilyashusain/ci-site. First, let us configure the webhooks by navigating to Settings > Webhooks on the repo. Click 'Add Webhook' and enter in the payload URL: http://<worker node ip>:<jenkins nodeport>/github-webhook/ and for the Content Type select application/json.
+  
+## 9. Configure slave container
+
+Navigate to Manage Jenkins > Configure System, and repeat step #5.2, except this time use odavid/jenkins-jnlp-slave as the Docker Image; this is a custom image of a container based on the original jnlp slave image, but it has docker installed on the container. This is significant because we need to run docker command to push an image to Dockerhub.
+
+However, there is a caveat. This image is based onan alpine linux distribution, hence docker is not enabled. To enable docker on the container, mount the master machine's docker.sock on to the slave, this will allow the slave to borrow the master machines docker system including its status. To mount the docker.sock, scroll down a bit in your pod definition and click on Add Volume > Host Path Volume, then enter /var/run/docker.sock in both fields as shown below:
+
+![Alt text](dockersock.png)
+
+This mounts the masters docker.sock on to the slave on the same directory path.
 
 ## 9. CI webhooks in Jenkins
 

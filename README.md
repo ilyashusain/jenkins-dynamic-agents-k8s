@@ -229,3 +229,7 @@ Now scroll down to the Build section and create a simple shell script that echos
 ![Alt text](jenkinsjob1.png)
 
 You may now run your job. A jenkins agent will spin up that echos 'hello', thereafter it will auto-delete itself when the job is complete.
+
+## 7. CI webhooks
+
+We will now setup CI with a sample website in a git repo: https://github.com/ilyashusain/ci-site. First, let us configure the webhooks by navigating to Settings > Webhooks on the repo. Click 'Add Webhook' and enter in the payload URL: http://<worker node ip>:<jenkins nodeport>/github-webhook/ and for the Content Type select application/json.

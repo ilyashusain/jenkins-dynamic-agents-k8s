@@ -230,6 +230,46 @@ Now scroll down to the Build section and create a simple shell script that echos
 
 You may now run your job. A jenkins agent will spin up that echos 'hello', thereafter it will auto-delete itself when the job is complete.
 
-## 7. CI webhooks
+# Continuous Integration
+
+## 7. Deploy containerized webpage
+
+Begin by deploying a containerized webpage. `git clone` the following git repository https://github.com/ilyashusain/ci-site and build the app and push it to a docker repository with:
+
+```
+docker build . -t hellowhale
+docker tag hellowhale <Your Dockerhub Account>/hellowhale
+docker login -u <Your Dockerhub Account> -p <Your Dockerhub Password>
+docker push <Your Dockerhub Account>/hellowhale
+```
+
+Next, deploy the webpage on to your cluster and expose it by running:
+
+```
+kubectl create deployment hellowhale --image <Your Dockerhub Account>/hellowhale
+kubectl expose deployment/hellowhale --port 80 --name hellowhalesvc --type NodePort
+```
+
+
+## 8. CI webhooks on Github
 
 We will now setup CI with a sample website in a git repo: https://github.com/ilyashusain/ci-site. First, let us configure the webhooks by navigating to Settings > Webhooks on the repo. Click 'Add Webhook' and enter in the payload URL: http://<worker node ip>:<jenkins nodeport>/github-webhook/ and for the Content Type select application/json.
+
+## 9. CI webhooks in Jenkins
+
+Create a job as in step #6, but under Source Code Management select Git and under Repository URL enter https://github.com/ilyashusain/ci-site.git.
+
+Under Build Triggers select 'GitHub hook trigger for GITScm polling'.
+
+In the build section, select Execute shell and in the build enter:
+
+```
+IMAGE_NAME="<Dockerhub Username>/hellowhale-k8s:${BUILD_NUMBER}"
+docker build . -t $IMAGE_NAME
+docker login -u <Dockerhub Username> -p <Dockerhub Password>
+docker push $IMAGE_NAME
+```
+
+A build agent will be triggered. You can then version control on the master, configuring the deployment to your own specifications with:
+
+`kubectl set image deployment/hellowhale hellowhale-k8s=ilyashusain/hellowhale-k8s:<a build number>`.

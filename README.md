@@ -234,7 +234,7 @@ You may now run your job. A jenkins agent will spin up that echos 'hello', there
 
 ## 7. Deploy containerized webpage
 
-Begin by deploying a containerized webpage. `git clone` the following git repository https://github.com/ilyashusain/ci-site and build the app and push it to a docker repository with:
+Begin by deploying a containerized webpage. Fork the following git repository https://github.com/ilyashusain/ci-site and `git clone` this on to the master node. Then build the app and push it to a docker repository with:
 
 ```
 docker build . -t hellowhale
@@ -253,7 +253,7 @@ kubectl expose deployment/hellowhale --port 80 --name hellowhalesvc --type NodeP
 
 ## 8. CI webhooks on Github
 
-We will now setup CI with a sample website in a git repo: https://github.com/ilyashusain/ci-site. First, let us configure the webhooks by navigating to Settings > Webhooks on the repo. Click 'Add Webhook' and enter in the payload URL: http://<worker node ip>:<jenkins nodeport>/github-webhook/ and for the Content Type select application/json.
+We will now setup CI with the sample website you just forked into your own Github account. First, let us configure the webhooks by navigating to Settings > Webhooks on the forked repository. Click 'Add Webhook' and enter in the payload URL: http://<worker node ip>:<jenkins nodeport>/github-webhook/ and for the Content Type select application/json. Now add the webhook.
   
 ## 9. Install docker on master node
 
@@ -270,13 +270,13 @@ sudo apt install docker-ce
   
 ## 10. Configure slave container and mount docker.sock
 
-Navigate to Manage Jenkins > Configure System, and repeat step #5.2, except this time use odavid/jenkins-jnlp-slave as the Docker Image; this is a custom image of a container based on the original jnlp slave image, but it has docker installed on the container. This is significant because we need to run docker command to push an image to Dockerhub.
+Navigate to Manage Jenkins > Configure System, and repeat step #5.2, except this time use odavid/jenkins-jnlp-slave as the Docker Image; this is a custom image of a container based on the original jnlp slave image, but it has docker installed on the container. This is significant because we need to run docker commands to be able to push an image to Dockerhub.
 
-However, there is a caveat. This image is based onan alpine linux distribution, hence docker is not enabled. To enable docker on the container, mount the master machine's docker.sock on to the slave, this will allow the slave to borrow the master machines docker system including its status. To mount the docker.sock, scroll down a bit in your pod definition and click on Add Volume > Host Path Volume, then enter /var/run/docker.sock in both fields as shown below:
+However, there is a caveat. This image is based on an alpine linux distribution, hence docker is not enabled. To enable docker on the container, mount the master machine's docker.sock on to the slave, this will allow the slave to borrow the master machines docker system including its status (this is why we installed Docker on to the master node in the previous step). To mount the docker.sock, scroll down a bit in your pod definition and click on Add Volume > Host Path Volume, then enter /var/run/docker.sock in both fields as shown below:
 
 ![Alt text](dockersock.png)
 
-This mounts the master node's docker.sock on to the slave on the same directory path.
+This mounts the master node's docker.sock on to the slave at the same directory path.
 
 ## 11. CI webhooks in Jenkins
 

@@ -255,7 +255,20 @@ kubectl expose deployment/hellowhale --port 80 --name hellowhalesvc --type NodeP
 
 We will now setup CI with a sample website in a git repo: https://github.com/ilyashusain/ci-site. First, let us configure the webhooks by navigating to Settings > Webhooks on the repo. Click 'Add Webhook' and enter in the payload URL: http://<worker node ip>:<jenkins nodeport>/github-webhook/ and for the Content Type select application/json.
   
-## 9. Configure slave container
+## 9. Install docker on master node
+
+We need to install docker on to the master, as we need to mount the docker.sock on to the jnlp slave (view following step to see how this is done). To install docker, run:
+
+```
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+sudo apt update
+sudo apt install docker-ce
+```
+  
+## 10. Configure slave container and mount docker.sock
 
 Navigate to Manage Jenkins > Configure System, and repeat step #5.2, except this time use odavid/jenkins-jnlp-slave as the Docker Image; this is a custom image of a container based on the original jnlp slave image, but it has docker installed on the container. This is significant because we need to run docker command to push an image to Dockerhub.
 
@@ -263,9 +276,9 @@ However, there is a caveat. This image is based onan alpine linux distribution, 
 
 ![Alt text](dockersock.png)
 
-This mounts the masters docker.sock on to the slave on the same directory path.
+This mounts the master node's docker.sock on to the slave on the same directory path.
 
-## 9. CI webhooks in Jenkins
+## 11. CI webhooks in Jenkins
 
 Create a job as in step #6, but under Source Code Management select Git and under Repository URL enter https://github.com/ilyashusain/ci-site.git.
 
